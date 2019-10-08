@@ -1,0 +1,7 @@
+version: "2"
+services:
+  auth-ms:
+    build: .
+    container_name: jobbey-backend
+    ports:
+      - "80"
