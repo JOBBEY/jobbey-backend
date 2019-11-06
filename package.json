@@ -9,7 +9,7 @@
         "express": "^4.16.2",
         "jsonwebtoken": "^8.1.0",
         "ldapjs": "^1.0.2",
-        "mongoose": "^4.13.9",
+        "mongoose": "^5.7.5",
         "morgan": "^1.9.0",
         "node-django-hashers": "^1.1.6",
         "node-ssha256": "^0.1.1",
