@@ -1,33 +1,49 @@
 {
-    "name": "luckypic_auth_ms",
-    "version": "1.0.0",
-    "description": "",
-    "main": "server.js",
-    "dependencies": {
-        "bcryptjs": "^2.4.3",
-        "body-parser": "^1.18.2",
-        "express": "^4.16.2",
-        "jsonwebtoken": "^8.1.0",
-        "ldapjs": "^1.0.2",
-        "mongoose": "^4.13.9",
-        "morgan": "^1.9.0",
-        "node-django-hashers": "^1.1.6",
-        "node-ssha256": "^0.1.1",
-        "uniqid": "^4.1.1",
-        "jwt-decode": "^2.2.0"
-    },
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node server.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/DaniCastel/luckypic-auth-ms.git"
-    },
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/DaniCastel/luckypic-auth-ms/issues"
-    },
-    "homepage": "https://github.com/DaniCastel/luckypic-auth-ms#readme"
+  "name": "back_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node index",
+    "dev": "DEBUG=app:* nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Microtransacciones-TPI/back_server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Microtransacciones-TPI/back_server/issues"
+  },
+  "homepage": "https://github.com/Microtransacciones-TPI/back_server#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.3.5",
+    "mongoose": "^5.7.13",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0",
+    "nodemon": "^2.0.1",
+    "prettier": "^1.19.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
 }
