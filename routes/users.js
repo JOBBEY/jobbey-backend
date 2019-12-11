@@ -1,9 +1,22 @@
 const express = require('express');
 const UsersService = require('../services/users')
+const JobsService = require('../services/jobs')
+
+const user = {
+    username: "",
+    firstName: "",
+    lastName: "",
+    description: "",
+    historyJobbey: ["id1", "id2"],
+    historyPerson: ["id1", "id2"],
+    scoreJobbe: 5,
+    scoreUser: 5
+}
 
 function usersAPI(app){
     const router = express.Router();
     const usersService = new UsersService
+    const jobsService = new JobsService
     
     app.use("/api/users", router)
     router.get("/", async function(req, res, next) {
@@ -23,9 +36,9 @@ function usersAPI(app){
         const { username }  = req.params
 
         try {
-            const user = await usersService.getUser({username})
+            const user = await usersService.getUserBy({username})
             res.status(200).json({
-                data: user,
+                data: user[0],
                 message: 'Datos de usuario.'
             })
         } catch (error) {
@@ -74,37 +87,36 @@ function usersAPI(app){
         } catch (error) {
             next(error);
         }
-    })
-   
-    //-----------------------------RASPBERRY ROUTES------------------------------
-    //Leer tarjeta
-    router.get("/card/:cardId", async function(req, res, next) {   
-        try {            
-            const user = await usersService.getUserBy({card: req.params.cardId})
-            res.status(200).json({
-                data: user[0],
-                message: `Usuario de tarjeta: ${req.params.cardId}`
-            })
-        } catch (error) {
-            next(error);
-        }
-    })
+    })  
+    
+    //--------
 
-    // Actualizar tarjeta
-    router.put("/:userId/:cardId/transactions", async function(req, res, next) {
-        const { body: data } = req                        
-        const userId = req.params.userId
+    router.get("/:username/:roleHistory", async function(req, res, next){
+        // :roleHistory = "JOBBEY"  "PERSON"
+        const username = req.params.username
+        const rol = req.params.roleHistory
+
+        console.log(username);
         
         try {
-            const updatedUserId = await usersService.updateUserBy(userId, data)        
+            const user = await usersService.getUserBy({username})
+            console.log(user);
+            
+            let hist = []
+            if(rol === "JOBBEY"){
+                hist = user[0].historyJobbey
+            }else if(rol === "PERSON"){
+                hist = user[0].historyPerson
+            }            
+
             res.status(200).json({
-                data: updatedUserId,
-                message: 'Usuario actualizado.'
+                data: hist,
+                message: 'Datos de usuario.'
             })
         } catch (error) {
             next(error);
         }
-    })
+    })    
 }
 
 module.exports = usersAPI
