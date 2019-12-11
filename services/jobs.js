@@ -38,7 +38,7 @@ class JobsService {
         return createJobId
     }
     
-    async updateJob({jobname, job} = {}) {
+    async updateJob(jobname, job) {
         const updateJobId = this.mongoDB.update(this.collection, jobname, job)
         console.log(`${jobname} updated.`);
         return updateJobId

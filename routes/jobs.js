@@ -98,17 +98,12 @@ function jobsAPI(app){
     
     //--------
 
-    router.get("/opens/:state", async function(req, res, next){
+    router.get("/opens", async function(req, res, next){
         // :roleHistory = "JOBBEY"  "PERSON"
         const { jobname } = req.params
         console.log("hi");
-        
+        console.log(req.params);
 
-        const state = "OPEN"
-
-        let opens = {
-            state: state
-        }
         try {
             const jobs = await jobsService.getOpens()
             console.log(jobs);
@@ -123,6 +118,31 @@ function jobsAPI(app){
         }
     })
    
+    router.put("/:jobId/:jobbeyuser", async function (req, res, next) {
+        const jobId = req.params.jobId
+        const jobbeyuser = req.params.jobbeyuser
+
+        console.log("hi");
+        const user = await usersService.getUserBy(jobbeyuser)
+        let newData = {}
+        let dataJob = {}
+
+        
+        try {
+            user[0].historyJobbey.push(jobId)
+            newData.historyJobbey = user[0].historyJobbey
+            dataJob.jobbey = jobbeyuser
+            
+            const updatedJobId = await jobsService.updateJob(jobId, dataJob)
+            await usersService.updateUser(user[0]._id, newData)
+            res.status(200).json({
+                data: updatedJobId,
+                message: 'Usuario actualizado.'
+            })
+        } catch (error) {
+            next(error);
+        }
+    })
 }
 
 module.exports = jobsAPI
