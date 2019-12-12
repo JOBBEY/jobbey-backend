@@ -98,7 +98,7 @@ function jobsAPI(app){
     
     //--------
 
-    router.get("/opens", async function(req, res, next){
+    router.get("/opens/:roleHistory", async function(req, res, next){
         // :roleHistory = "JOBBEY"  "PERSON"
         const { jobname } = req.params
         console.log("hi");
